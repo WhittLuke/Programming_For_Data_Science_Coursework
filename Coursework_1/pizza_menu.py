@@ -40,20 +40,20 @@ def main():
 
     # Loop through and print out all of the different sizes that are available
     print "\n## Sizes"
-    for item in root.find("sizes"):
-        print "-  %s" % item.text
+    for size in root.find("sizes"):
+        print "-  %s" % size.text
 
 
     # Then loop through and print out the Toppings
     print "\n## Toppings"
-    for item in root.find("toppings"):
-        print "- %s" % item.text
+    for topping in root.find("toppings"):
+        print "- %s" % topping.text
 
 
     # Finally print out the different kinds of crusts
     print "\n## Crusts"
-    for item in root.find("crusts"):
-        print "- %s" % item.text
+    for crust in root.find("crusts"):
+        print "- %s" % crust.text
 
 
 if __name__ == '__main__':
