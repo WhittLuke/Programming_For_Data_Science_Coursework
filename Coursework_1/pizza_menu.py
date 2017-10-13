@@ -27,8 +27,7 @@ def read_xml_file(filepath):
         with open(filepath) as data_file:
             tree = ElementTree.parse(data_file)
             pizza_data = tree.getroot()
-            # I think I need to add something else here. Will have a look at the slides
-            return pizza_data  # Look and see what it looks like, might need to read the lecture slides again
+            return pizza_data
 
     except IOError as ioe:
         print "I/O Error: unable to open file:", ioe
