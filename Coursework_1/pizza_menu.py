@@ -50,14 +50,17 @@ def main():
 
 
     # Loop through and print out all of the different sizzes that are available
-    print "\n##  Sizes"
+    print "\n## Sizes"
     node = tree.find('sizes')
     for item in node:
         print "-  %s" % item.text  # This is the right line, just youtube it.
 
 
     # Then loop through and print out the Toppings
-
+    print "\n## Toppings"
+    node = tree.find("toppings")
+    for item in node:
+        print "- %s" % item.text
 
 
     # Finally print out the different kinds of crusts
