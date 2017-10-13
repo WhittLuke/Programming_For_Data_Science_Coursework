@@ -31,7 +31,7 @@ def read_xml_file(filepath):
             return pizza_data  # Look and see what it looks like, might need to read the lecture slides again
 
     except IOError as ioe:
-        print "I/O Error: unable to open file %s" % ioe
+        print "I/O Error: unable to open file:", ioe
 
 
 def main():
@@ -40,18 +40,24 @@ def main():
     # this just makes changing the path easier if it needs to be changed
     data_path_string = "data/pizza.xml"
 
-    tree = ElementTree.parse(data_path_string)
-    root = tree.getroot()
     # Now, we try and get hold of the pizza data
     company_pizza_data = read_xml_file(data_path_string)
 
-    print root
 
-    print '\n'
+    # First we want to print out the Company's name
+    # print "#  %s" % company_pizza_data["need to access the company name"]
 
-    for item in root:
-        print item.tag, item.attrib # This is the right line, just youtube it.
 
+    # Loop through and print out all of the different sizzes that are available
+    # print "\n##  Sizes"
+    # for item in company_pizza_data:
+    #     print "-  %s" % item.text # This is the right line, just youtube it.
+
+
+    # Then loop through and print out the Toppings
+
+
+    # Finally print out the different kinds of crusts
 
 
 if __name__ == '__main__':
