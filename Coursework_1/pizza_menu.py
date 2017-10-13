@@ -11,59 +11,49 @@
 from xml.etree import ElementTree
 
 
-def read_xml_file(filepath):
-
-    """
-        This function looks to read in an XML file and place the contents into a variable
-
-        parameters:
-            filepath: this specifies file path that the XML file is located (should be in working directory)
-
-        returns:
-            pizza_data: all of the data contained within the XML file will be placed into this variable
-    """
-
-    try:
-        with open(filepath) as data_file:
-            tree = ElementTree.parse(data_file)
-            pizza_data = tree.getroot()
-            return pizza_data
-
-    except IOError as ioe:
-        print "I/O Error: unable to open file:", ioe
-
-
 def main():
+
+    """ NOTE TO EXAMINER: If you change the location of the pizza.xml file
+         please assign its path to the data_path_string variable"""
 
     # define a variable to hold the path of the pizza.xml file
     # this just makes changing the path easier if it needs to be changed
     data_path_string = "data/pizza.xml"
 
-    # Now, we try and get hold of the pizza data
-    company_pizza_data = read_xml_file(data_path_string)
+    try:
+        # I haven't specified the mode because the default mode for open is read
+        with open(data_path_string) as data_file:
+            tree = ElementTree.parse(data_file)
 
-    tree = ElementTree.parse(data_path_string)
+    except IOError as ioe:
+
+        print "I/O Error: unable to open file: %s" % ioe
+
+    # Access the root from the data stored within the tree variable
     root = tree.getroot()
 
     # First we want to print out the Company's name
-    # print "#  %s" % company_pizza_data["shopname"].attrib.get()
+    print "# %s" % root.find("shopname").text
 
 
-    # Loop through and print out all of the different sizzes that are available
+    """ Not an ideal solution but it works """
+
+    # Loop through and print out all of the different sizes that are available
     print "\n## Sizes"
-    node = tree.find('sizes')
-    for item in node:
-        print "-  %s" % item.text  # This is the right line, just youtube it.
+    for item in root.find("sizes"):
+        print "-  %s" % item.text
 
 
     # Then loop through and print out the Toppings
     print "\n## Toppings"
-    node = tree.find("toppings")
-    for item in node:
+    for item in root.find("toppings"):
         print "- %s" % item.text
 
 
     # Finally print out the different kinds of crusts
+    print "\n## Crusts"
+    for item in root.find("crusts"):
+        print "- %s" % item.text
 
 
 if __name__ == '__main__':
