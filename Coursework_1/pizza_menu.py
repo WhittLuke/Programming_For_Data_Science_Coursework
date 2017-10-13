@@ -42,18 +42,22 @@ def main():
     # Now, we try and get hold of the pizza data
     company_pizza_data = read_xml_file(data_path_string)
 
+    tree = ElementTree.parse(data_path_string)
+    root = tree.getroot()
 
     # First we want to print out the Company's name
-    # print "#  %s" % company_pizza_data["need to access the company name"]
+    # print "#  %s" % company_pizza_data["shopname"].attrib.get()
 
 
     # Loop through and print out all of the different sizzes that are available
-    # print "\n##  Sizes"
-    # for item in company_pizza_data:
-    #     print "-  %s" % item.text # This is the right line, just youtube it.
+    print "\n##  Sizes"
+    node = tree.find('sizes')
+    for item in node:
+        print "-  %s" % item.text  # This is the right line, just youtube it.
 
 
     # Then loop through and print out the Toppings
+
 
 
     # Finally print out the different kinds of crusts
