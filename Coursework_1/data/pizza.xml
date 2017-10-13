@@ -1,0 +1,14 @@
+<pizza>
+	<shopname>CMP Pizza Shop</shopname>
+	<sizes>
+		<size code="L">Large</size>
+		<size code="XL">Extra Large</size>
+	</sizes>
+	<toppings>
+		<topping code="x">Extra Cheese</topping>
+		<topping code="m">Mushrooms</topping>
+	</toppings>
+	<crusts>
+		<crust code="thick">Thick Crust</crust>
+	</crusts>
+</pizza>
