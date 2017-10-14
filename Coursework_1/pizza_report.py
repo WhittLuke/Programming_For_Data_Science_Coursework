@@ -100,10 +100,30 @@ def numberOfCrusts(pizza_data):
     return list_of_crusts
 
 
+def writeToCSV(sizes, toppings, crusts, total_combos):
+
+    """ This function will look to write a report about the pizzas available at CMP to a .csv file
+
+        paremeters:
+            sizes: list of sizes available
+            toppings: list of toppings available
+            crusts: list of crusts availble
+            total_combos: integer value for the total of combos """
+
+    with open('pizza_report.csv', 'w') as write_file:
+        write_csv = csv.writer(write_file)
+        headers = ['sizes', 'toppings', 'crusts', 'total_combo']
+        report = [len(sizes), len(toppings), len(crusts), total_combos]
+        write_csv.writerow(headers)
+        write_csv.writerow(report)
+
+
+
 
 def main():
 
     # First define a file path string placeholder
+    """ NOTE: if you change the location of the pizza.xml file, please update this string """
     data_file_string = "data/pizza.xml"
 
     # Now we can call the read_xml function to get access to our data
@@ -118,10 +138,17 @@ def main():
     # Call the numberOfCrusts() -> give it the XML data
     crusts_available = numberOfCrusts(pizza_data_xml)
 
-    print(sizes_available)
-    print(toppings_available)
-    print(crusts_available)
 
+    # 1 -> for the size
+    #  + len(toppings available)
+    # 1 -> size of crust + no toppings
+    total_combo_of_XL_pizzas = 1 + len(toppings_available) + 1
+    total_combo_of_L_pizza = 1 + len(toppings_available) + 1
+    total_combo = total_combo_of_XL_pizzas + total_combo_of_L_pizza
+
+
+    # Call writeToCSV() -> pass sizes, toppings, crusts data and the total_combo data
+    writeToCSV(sizes_available, toppings_available, crusts_available, total_combo)
 
 if __name__ == '__main__':
     main()
