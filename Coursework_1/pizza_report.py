@@ -9,7 +9,7 @@ from xml.etree import ElementTree
 import csv
 
 
-def read_xml(filepath):
+def readXML(filepath):
 
     """ This function will extract all of the data from the XML file
 
@@ -132,7 +132,7 @@ def main():
     data_file_string = "data/pizza.xml"
 
     # Now we can call the read_xml function to get access to our data
-    pizza_data_xml = read_xml(data_file_string)
+    pizza_data_xml = readXML(data_file_string)
 
     # Call the numberOfPizzaSizes() -> give the function the XML data
     sizes_available = numberOfPizzaSizes(pizza_data_xml)
