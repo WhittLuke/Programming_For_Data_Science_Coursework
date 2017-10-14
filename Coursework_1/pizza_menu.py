@@ -1,6 +1,6 @@
 
 """ Author: Luke Whittaker
-    k-number: 1758283
+    Student Number: Add just before submission
 
     Description: For the first task we will look to create a pizza menu for a company called CMP.
 
