@@ -110,12 +110,17 @@ def writeToCSV(sizes, toppings, crusts, total_combos):
             crusts: list of crusts availble
             total_combos: integer value for the total of combos """
 
+    # First, create a file to store the results of the report
     with open('pizza_report.csv', 'w') as write_file:
         write_csv = csv.writer(write_file)
+
+        # Create a header list -> the names will be the columns to be displayed within the .csv file
         headers = ['sizes', 'toppings', 'crusts', 'total_combo']
-        report = [len(sizes), len(toppings), len(crusts), total_combos]
+
+        # Create a list to store the results of the exercise and place them in the order of their corresponding header
+        report_results = [len(sizes), len(toppings), len(crusts), total_combos]
         write_csv.writerow(headers)
-        write_csv.writerow(report)
+        write_csv.writerow(report_results)
 
 
 
