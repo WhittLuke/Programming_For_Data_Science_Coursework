@@ -14,7 +14,7 @@ def readXML(filepath):
     """ This function will extract all of the data from the XML file
 
         parameter:
-            file path to the data
+            file path to access the data
 
         returns:
             a variable containing all of the XML data """
