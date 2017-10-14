@@ -1,6 +1,6 @@
 
 """ Author: Luke Whittaker
-    Student Number: 1763234
+    Student Number: Add just before submission
 
     This Python script will look to implement exercise 2 from the coursework specification. """
 
