@@ -11,7 +11,15 @@ import csv
 
 def read_xml(filepath):
 
+    """ This function will extract all of the data from the XML file
+
+        parameter:
+            file path to the data
+
+        returns:
+            a variable containing all of the XML data """
     try:
+        # Open the XML data and parse it using ElementTree
         with open(filepath) as xml_data:
             xml_pizza_data = ElementTree.parse(xml_data)
 
@@ -25,8 +33,8 @@ def numberOfPizzaSizes(pizza_data):
 
     """ This function looks to extract all of the available pizza sizes
 
-        parameter (more like data):
-            self.pizza_data (the XML data passed to this class
+        parameter:
+            pizza_data (the XML data passed to this class)
 
         returns:
             A list of available pizza sizes """
@@ -37,7 +45,6 @@ def numberOfPizzaSizes(pizza_data):
     # Get access to root of the XML data
     size_attribute = pizza_data.getroot()
 
-    print(size_attribute)
     # Loop through the Sizes attribute within the XML file and add them to the lis
     for size in size_attribute.find("sizes"):
         list_of_pizza_sizes.append(size.text)
@@ -45,6 +52,52 @@ def numberOfPizzaSizes(pizza_data):
     return list_of_pizza_sizes
 
 
+def numberOfToppings(pizza_data):
+
+    """ Function for accessing the number of toppings available
+
+        parameter:
+            pizza_data -> XML data
+
+        returns:
+            A list of the toppings available """
+
+    # Create an empty list to store the toppings
+    list_of_toppings = []
+
+    # Access the root for the XML data
+    toppings_attribute = pizza_data.getroot()
+
+    # Loop through the toppings_attribute and store them into the list
+    for topping in toppings_attribute.find("toppings"):
+        list_of_toppings.append(topping.text)
+
+    # return the toppings list
+    return list_of_toppings
+
+
+def numberOfCrusts(pizza_data):
+
+    """ Function for accessing the number of toppings available
+
+        parameters:
+            pizza_data -> XML data
+
+        returns:
+            list of all the available crusts """
+
+    # Create an empty list for storing the crusts
+    list_of_crusts = []
+
+    # Access the root of the XML file
+    crusts_attribute = pizza_data.getroot()
+
+    # Loop through the crusts_attribute and store the crusts into the list
+    for crust in crusts_attribute.find("crusts"):
+        list_of_crusts.append(crust.text)
+
+    # return the list
+    return list_of_crusts
 
 
 
@@ -54,18 +107,20 @@ def main():
     data_file_string = "data/pizza.xml"
 
     # Now we can call the read_xml function to get access to our data
-    pizza_data = read_xml(data_file_string)
+    pizza_data_xml = read_xml(data_file_string)
 
     # Call the numberOfPizzaSizes() -> give the function the XML data
-    sizes_available = numberOfPizzaSizes(pizza_data)
+    sizes_available = numberOfPizzaSizes(pizza_data_xml)
 
     # Call the numberOfToppings() -> give it the XML data
-
+    toppings_available = numberOfToppings(pizza_data_xml)
 
     # Call the numberOfCrusts() -> give it the XML data
-    
+    crusts_available = numberOfCrusts(pizza_data_xml)
 
-    print(len(sizes_available))
+    print(sizes_available)
+    print(toppings_available)
+    print(crusts_available)
 
 
 if __name__ == '__main__':
