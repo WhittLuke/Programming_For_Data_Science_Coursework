@@ -24,8 +24,8 @@ def readXML(filepath):
             xml_pizza_data = ElementTree.parse(xml_data)
 
         return xml_pizza_data
-    except TypeError as ioe:
-        raise TypeError("I/O Error: unable to open file: " % ioe)
+    except Exception as ioe:
+        raise IOError("unable to open file %s" % ioe)
 
 
 def numberOfPizzaSizes(pizza_data):
@@ -128,7 +128,7 @@ def main():
 
     # First define a file path string placeholder
     """ NOTE: if you change the location of the pizza.xml file, please update this string """
-    data_file_string = "data/pizza.xml"
+    data_file_string = "data/izza.xml"
 
     # Now we can call the read_xml function to get access to our data
     pizza_data_xml = readXML(data_file_string)
