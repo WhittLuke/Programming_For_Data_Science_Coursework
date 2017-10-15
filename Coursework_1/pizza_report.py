@@ -24,9 +24,8 @@ def readXML(filepath):
             xml_pizza_data = ElementTree.parse(xml_data)
 
         return xml_pizza_data
-    except IOError as ioe:
-
-        print "I/O Error: unable to open file: " % ioe
+    except TypeError as ioe:
+        raise TypeError("I/O Error: unable to open file: " % ioe)
 
 
 def numberOfPizzaSizes(pizza_data):
