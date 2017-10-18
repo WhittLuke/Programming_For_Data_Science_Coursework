@@ -36,7 +36,7 @@ def readXML(xml_file_path):
 def sizesDict(pizza_xml_data, pizza_data_dict):
     """ This function will take the data regarding the sizes available and convert it into a dictionary
 
-        parameter:
+        parameters:
             pizza_xml_data: data outlining all of the available sizes
             pizza_data_dict: the dictionary for storing all of the xml data """
 
@@ -60,7 +60,7 @@ def toppingsDict(pizza_xml_data, pizza_data_dict):
 
     """ This function will convert the topping xml data into a dictionary
 
-        parameter:
+        parameters:
             pizza_xml_data: all of the pizza data extracted from the xml file
             pizza_data_dict: the dictionary for storing all of the xml data """
 
@@ -82,7 +82,7 @@ def crustsDict(crusts_data, pizza_data_dict):
 
     """ This function will place all of the data about the crusts into the crust dictionary
 
-        parameter:
+        parameters:
             crust_data: xml data about pizzas
             pizza_data_dict: the dictionary for storing all of the xml data"""
 
@@ -119,9 +119,10 @@ def readCSV(csv_file_path):
 def writeToTxtFile(pizza_special_list):
     """ This function will write the created specials menu to .txt file
 
-        parameter:
+        parameters:
             pizza_special_list: a list containing both entries describing the specials.
             Should be able to loop over this list and wrote each item to the .txt file"""
+
     with open('pizza_specials.txt', 'w') as write_file:
         for row in pizza_special_list:
             write_file.write(row + '\n')
