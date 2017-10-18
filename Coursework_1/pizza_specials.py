@@ -33,14 +33,14 @@ def readXML(xml_file_path):
 """ Create functions placing the data regarding sizes, toppings, and crusts into dictionaries """
 
 
-def sizesDict(sizes_data, pizza_data_dict):
+def sizesDict(pizza_xml_data, pizza_data_dict):
     """ This function will take the data regarding the sizes available and convert it into a dictionary
 
         parameter:
-            sizes_data: data outlining all of the available sizes
+            pizza_xml_data: data outlining all of the available sizes
             pizza_data_dict: the dictionary for storing all of the xml data """
 
-    root = sizes_data.find("sizes")
+    root = pizza_xml_data.find("sizes")
 
     # Then we can try and loop through the sizes_data and see if we're able to put data into the dict
     for pizza_size in root:
@@ -98,7 +98,16 @@ def readCSV(csv_file_path):
 
         returns:
             csv_data: A variable containg all of the csv data"""
-    pass
+
+    try:
+        with open(csv_file_path) as csv_data_file:
+            csv_data = csv.reader(csv_data_file)
+            next(csv_data)
+            csv_data = list(csv_data)
+        return csv_data
+
+    except Exception as ioe:
+        raise IOError("unable to read file %s" % ioe)
 
 
 
@@ -110,10 +119,9 @@ def writeToTxtFile(pizza_special_list):
         parameter:
             pizza_special_list: a list containing both entries describing the specials.
             Should be able to loop over this list and wrote each item to the .txt file"""
-    pass
-
-
-
+    with open('pizza_specials.txt', 'w') as write_file:
+        for row in pizza_special_list:
+            write_file.write(row + '\n')
 
 
 def composeSpecialsMenu(pizza_data_dict, csv_specials_data):
@@ -127,7 +135,30 @@ def composeSpecialsMenu(pizza_data_dict, csv_specials_data):
         returns:
             pizza_specials_list: a list containing the two available specials from the csv file.
             This will also immediately pass the created list to the writeToTxtFile()"""
-    pass
+
+    pizza_specials_list = []
+
+    # split the toppings if there appears to be more than one option
+
+    first_special_toppings = list(csv_specials_data[0][2])
+
+    # Create the specials menu from the
+    supreme_special = "%s: %s Pizza with %s and %s and %s" % (csv_specials_data[0][0],
+                                                              pizza_data_dict[csv_specials_data[0][1]],
+                                                              pizza_data_dict[first_special_toppings[0]],
+                                                              pizza_data_dict[first_special_toppings[1]],
+                                                              pizza_data_dict[csv_specials_data[0][3]])
+
+    simple_special = "%s: %s Pizza with %s and %s" % (csv_specials_data[1][0],
+                                                      pizza_data_dict[csv_specials_data[1][1]],
+                                                      pizza_data_dict[csv_specials_data[1][2]],
+                                                      pizza_data_dict[csv_specials_data[1][3]])
+
+    pizza_specials_list.append(supreme_special)
+    pizza_specials_list.append(simple_special)
+
+    # Send the specials_menu to the writeToTxtFile to save it to a .txt file
+    writeToTxtFile(pizza_specials_list)
 
 
 
@@ -155,7 +186,14 @@ def main():
     # Call the toppingDict()
     toppingsDict(xml_data, pizza_data_dict)
 
-    print pizza_data_dict
+    # Now that all of the data from the xml file is stored in the dictionary
+    # We can now look to read in the csv file
+    returned_csv_data = readCSV(csv_data_path_string)
+
+    # Call the composespecialsMenu()
+    composeSpecialsMenu(pizza_data_dict, returned_csv_data)
+
+
 
 
 if __name__ == '__main__':
