@@ -30,88 +30,63 @@ def readXML(xml_file_path):
         raise IOError("unable to open file %s" % ioe)
 
 
-
 """ Create functions placing the data regarding sizes, toppings, and crusts into dictionaries """
 
-def sizesDict(sizes_data):
+
+def sizesDict(sizes_data, pizza_data_dict):
     """ This function will take the data regarding the sizes available and convert it into a dictionary
 
         parameter:
             sizes_data: data outlining all of the available sizes
+            pizza_data_dict: the dictionary for storing all of the xml data """
 
-        returns:
-            sizes_dict: a dictionary with the sizes key being 'L' etc.. and the value 'Large' """
-
-
-    # First let's define are dictionary placehlder
-    sizes_dict = {}
     root = sizes_data.find("sizes")
-    # Create a list of codes that we can use as the keys
-    list_of_sizes = ['XL', 'L']
 
     # Then we can try and loop through the sizes_data and see if we're able to put data into the dict
     for pizza_size in root:
 
         if pizza_size.text == "Large":
-            sizes_dict[list_of_sizes[1]] = pizza_size.text
+            pizza_data_dict["L"] = pizza_size.text
 
         elif pizza_size.text == "Extra Large":
-            sizes_dict[list_of_sizes[0]] = pizza_size.text
-
-    return sizes_dict
+            pizza_data_dict["XL"] = pizza_size.text
 
 
 
-def toppingsDict(pizza_xml_data):
+
+def toppingsDict(pizza_xml_data, pizza_data_dict):
 
     """ This function will convert the topping xml data into a dictionary
 
         parameter:
             pizza_xml_data: all of the pizza data extracted from the xml file
-
-        returns:
-            toppings_dict: a dictionary which will highlight the codes for each topping and thier value """
-
-
-    # Define a dict placeholder for the toppings
-    toppings_dict = {}
+            pizza_data_dict: the dictionary for storing all of the xml data """
 
     # Get all of the xml data regarding toppings
     root = pizza_xml_data.find("toppings")
-
-    list_of_toppings = ['x', 'm']
 
     # Now loop through the data and place them into the dictionary
     for pizza_topping in root:
 
         if pizza_topping.text == "Mushrooms":
-            toppings_dict["m"] = pizza_topping.text
+            pizza_data_dict["m"] = pizza_topping.text
 
         elif pizza_topping.text == "Extra Cheese":
-            toppings_dict["x"] = pizza_topping.text
-
-    return toppings_dict
+            pizza_data_dict["x"] = pizza_topping.text
 
 
 
-def crustsDict(crusts_data):
+def crustsDict(crusts_data, pizza_data_dict):
 
     """ This function will place all of the data about the crusts into the crust dictionary
 
         parameter:
             crust_data: xml data about pizzas
-
-        returns:
-            crusts_dict: a dictionary outlining the crust code and its corresponding value """
-
-    crusts_dict = {}
+            pizza_data_dict: the dictionary for storing all of the xml data"""
 
     # Loop through and place all of the types of crusts into the dictionary
     for crust in crusts_data.find("crusts"):
-        crusts_dict["thick"] = crust.text
-
-    return crusts_dict
-
+        pizza_data_dict["thick"] = crust.text
 
 
 
@@ -141,13 +116,11 @@ def writeToTxtFile(pizza_special_list):
 
 
 
-def composeSpecialsMenu(sizes_dict, toppings_dict, crusts_dict, csv_specials_data):
+def composeSpecialsMenu(pizza_data_dict, csv_specials_data):
     """ This function takes the dictionaries and looks to compile the specials menu
 
         parameters:
-            sizes_dict: dictionary containing all of the info regarding the sizes of pizzas
-            toppings_dict: dictionary of the toppings data
-            crusts_dict: dictionary of the crusts data
+            pizza_data_dict: all of the data from the xml file store in a dictionary
             csv_specials_data: the data outlining what the specials consist of. This will also act as
                             the main source to compile the menu
 
@@ -167,22 +140,22 @@ def main():
     xml_data_path_string = "data/pizza.xml"
     csv_data_path_string = "data/pizza_specials.csv"
 
+    # Create a dictionary to store all of the XML data and their codes
+    pizza_data_dict = {}
+
     # Extract all the data from the XML file
     xml_data = readXML(xml_data_path_string)
 
     # Call the crustsDict()
-    return_crusts_dict = crustsDict(xml_data)
-    print(return_crusts_dict)
+    crustsDict(xml_data, pizza_data_dict)
 
     # Call the sizeDict()
-    returned_sizes_dict = sizesDict(xml_data)
-    print(returned_sizes_dict)
-
+    sizesDict(xml_data, pizza_data_dict)
 
     # Call the toppingDict()
-    returned_toppings_dict = toppingsDict(xml_data)
-    print(returned_toppings_dict)
+    toppingsDict(xml_data, pizza_data_dict)
 
+    print pizza_data_dict
 
 
 if __name__ == '__main__':
