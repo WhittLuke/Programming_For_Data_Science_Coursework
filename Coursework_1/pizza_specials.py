@@ -12,7 +12,6 @@ import csv
 
 
 
-
 def readXML(xml_file_path):
     """ This function will look to read all of the data from the XML file
 
@@ -21,11 +20,12 @@ def readXML(xml_file_path):
 
         returns:
             xml_data: A variable containing the XML data """
+
     try:
         with open(xml_file_path) as data_file:
             xml_data = ElementTree.parse(data_file)
+        return xml_data
 
-        return  xml_data
     except Exception as ioe:
         raise IOError("unable to open file %s" % ioe)
 
@@ -45,12 +45,14 @@ def sizesDict(pizza_xml_data, pizza_data_dict):
     # Then we can try and loop through the sizes_data and see if we're able to put data into the dict
     for pizza_size in root:
 
+        # Hmm, This doesn't seem to be what is expected from the lecturers
+        # It works, for the XML we have been given, I will try and speak to Isabel about this.
+        # At the moment don't worry about it as it works
         if pizza_size.text == "Large":
             pizza_data_dict["L"] = pizza_size.text
 
         elif pizza_size.text == "Extra Large":
             pizza_data_dict["XL"] = pizza_size.text
-
 
 
 
@@ -110,7 +112,6 @@ def readCSV(csv_file_path):
 
     except Exception as ioe:
         raise IOError("unable to read file %s" % ioe)
-
 
 
 
