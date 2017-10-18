@@ -102,7 +102,9 @@ def readCSV(csv_file_path):
     try:
         with open(csv_file_path) as csv_data_file:
             csv_data = csv.reader(csv_data_file)
-            next(csv_data)
+            next(csv_data)  # This removed the headers from the data
+
+            # Now convert the csv data into a list
             csv_data = list(csv_data)
         return csv_data
 
@@ -122,6 +124,7 @@ def writeToTxtFile(pizza_special_list):
     with open('pizza_specials.txt', 'w') as write_file:
         for row in pizza_special_list:
             write_file.write(row + '\n')
+
 
 
 def composeSpecialsMenu(pizza_data_dict, csv_specials_data):
